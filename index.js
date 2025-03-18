@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+var { setTimeout } = require('timers');
+var console = require('console');
+var process = require('process');
 var clivas = require('clivas');
 var keypress = require('keypress');
 
@@ -250,6 +253,7 @@ var removeLines = function() {
 
 var draw = function() {
 	clivas.clear();
+	console.clear();
 
 	var scoreDraw = getScore();
 
@@ -281,7 +285,9 @@ var loop = function() {
 	if (y < 0) {
 		clivas.alias('box-color', 'inverse+red');
 		draw();
-		process.exit(0);
+		setTimeout(() => {
+			process.exit(0);
+		}, 3000);
 		return;
 	}
 	selectFigure();
