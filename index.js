@@ -8,6 +8,7 @@ var keypress = require('keypress');
 
 var WIDTH = 15;
 var HEIGHT = 20;
+var OVERFLOW;
 
 clivas.alias('box-color', 'inverse+cyan');
 clivas.alias('full-width', 2*WIDTH+4);
@@ -253,7 +254,15 @@ var removeLines = function() {
 
 var draw = function() {
 	clivas.clear();
-	console.clear();
+	if (!(process.stdout.columns > 77 && process.stdout.rows > 24)) {
+		console.clear();
+		OVERFLOW = true;
+	} else {
+		if (OVERFLOW) {
+			console.clear();
+			OVERFLOW = false;
+		}
+	}
 
 	var scoreDraw = getScore();
 
